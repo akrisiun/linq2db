@@ -46,7 +46,7 @@ namespace LinqToDB.Linq
 		#endregion
 	}
 
-	class TableQuery<T> : ExpressionQueryNew<T>, ITable<T>, ITable
+	public class TableQuery<T> : ExpressionQueryNew<T>, ITable<T>, ITable
 	{
 		public TableQuery(IDataContext dataContext)
 			: base(dataContext, null)
@@ -57,5 +57,16 @@ namespace LinqToDB.Linq
 		{
 			return "Table(" + typeof(T).Name + ")";
 		}
-	}
+
+        public new System.Collections.IEnumerator GetEnumerator()
+        {
+            return base.GetEnumerator();
+        }
+
+
+        public override IDataContextInfo DataContextInfo
+        {
+            get { throw new NotImplementedException(); }
+        }
+    }
 }

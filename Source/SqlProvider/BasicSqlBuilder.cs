@@ -1300,7 +1300,7 @@ namespace LinqToDB.SqlProvider
 			}
 		}
 
-		protected virtual void BuildSearchCondition(int parentPrecedence, SelectQuery.SearchCondition condition)
+        protected virtual void BuildSearchCondition(PrecedenceLevel parentPrecedence, SelectQuery.SearchCondition condition)
 		{
 			var wrap = Wrap(GetPrecedence(condition as ISqlExpression), parentPrecedence);
 
@@ -1422,7 +1422,8 @@ namespace LinqToDB.SqlProvider
 						if (p.IsNot)
 							StringBuilder.Append("NOT ");
 
-						BuildExpression(p.IsNot ? PrecedenceLevel.LogicalNegation : GetPrecedence(p), p.Expr1);
+                        BuildExpression(precedence: (p.IsNot ? PrecedenceLevel.LogicalNegation : GetPrecedence(p) as PrecedenceLevel,
+                            expr: p.Expr1);
 					}
 
 					break;
@@ -1922,7 +1923,7 @@ namespace LinqToDB.SqlProvider
 			return StringBuilder;
 		}
 
-		void BuildExpression(int parentPrecedence, ISqlExpression expr, string alias, ref bool addAlias)
+        void BuildExpression(PrecedenceLevel parentPrecedence, ISqlExpression expr, string alias, ref bool addAlias)
 		{
 			var wrap = Wrap(GetPrecedence(expr), parentPrecedence);
 
@@ -1943,7 +1944,7 @@ namespace LinqToDB.SqlProvider
 			BuildExpression(expr, buildTableName, checkParentheses, null, ref dummy, throwExceptionIfTableNotFound);
 		}
 
-		protected void BuildExpression(int precedence, ISqlExpression expr)
+        protected void BuildExpression(PrecedenceLevel precedence, ISqlExpression expr)
 		{
 			var dummy = false;
 			BuildExpression(precedence, expr, null, ref dummy);
@@ -2097,12 +2098,12 @@ namespace LinqToDB.SqlProvider
 
 		#region GetPrecedence
 
-		static int GetPrecedence(ISqlExpression expr)
+        static PrecedenceLevel GetPrecedence(ISqlExpression expr)
 		{
 			return expr.Precedence;
 		}
 
-		protected static int GetPrecedence(ISqlPredicate predicate)
+        protected static PrecedenceLevel GetPrecedence(ISqlPredicate predicate)
 		{
 			return predicate.Precedence;
 		}
@@ -2453,16 +2454,16 @@ namespace LinqToDB.SqlProvider
 			return defaultAttr;
 		}
 
-		static bool Wrap(int precedence, int parentPrecedence)
+        static bool Wrap(PrecedenceLevel precedence, PrecedenceLevel parentPrecedence)
 		{
 			return
-				precedence == 0 ||
+				precedence.Id == 0 ||
 				/* maybe it will be no harm to put "<=" here? */
-				precedence < parentPrecedence ||
-				(precedence == parentPrecedence && 
-					(parentPrecedence == Precedence.Subtraction    ||
-					 parentPrecedence == Precedence.Multiplicative ||
-					 parentPrecedence == Precedence.LogicalNegation));
+				precedence.IsLess(parentPrecedence) ||
+				(precedence == parentPrecedence &&
+                    (parentPrecedence.Equals(PrecedenceLevel.Subtraction) ||
+                     parentPrecedence.Equals(PrecedenceLevel.Multiplicative) ||
+                     parentPrecedence.Equals(PrecedenceLevel.LogicalNegation)));
 		}
 
 		protected string[] GetTempAliases(int n, string defaultAlias)

@@ -7,12 +7,12 @@ namespace LinqToDB.SqlQuery
 {
 	public class SqlFunction : ISqlExpression//ISqlTableSource
 	{
-		public SqlFunction(Type systemType, string name, params ISqlExpression[] parameters)
-			: this(systemType, name, PrecedenceLevel.Primary, parameters)
-		{
-		}
+        //public SqlFunction(Type systemType, string name, params ISqlExpression[] parameters)
+        //    : this(systemType, name, precedence: PrecedenceLevel.Primary, parameters: parameters)
+        //{
+        //}
 
-		public SqlFunction(Type systemType, string name, int precedence, params ISqlExpression[] parameters)
+        public SqlFunction(Type systemType, string name, PrecedenceLevel precedence, params ISqlExpression[] parameters)
 		{
 			//_sourceID = Interlocked.Increment(ref SqlQuery.SourceIDCounter);
 
@@ -29,7 +29,7 @@ namespace LinqToDB.SqlQuery
 
 		public Type             SystemType { get; private set; }
 		public string           Name       { get; private set; }
-		public int              Precedence { get; private set; }
+        public PrecedenceLevel  Precedence { get; private set; }
 		public ISqlExpression[] Parameters { get; private set; }
 
 		public static SqlFunction CreateCount (Type type, ISqlTableSource table) { return new SqlFunction(type, "Count",  new SqlExpression("*")); }

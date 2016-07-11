@@ -52,7 +52,9 @@ namespace LinqToDB.DataProvider.MySql
 
 								list.Insert(0, ex);
 
-								return new SqlFunction(be.SystemType, "Concat", list.ToArray());
+								return new SqlFunction(be.SystemType, "Concat",
+                                    PrecedenceLevel.Unknown, 
+                                    list.ToArray());
 							}
 
 							return new SqlFunction(be.SystemType, "Concat", be.Expr1, be.Expr2);

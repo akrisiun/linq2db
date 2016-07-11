@@ -106,29 +106,10 @@
     <Compile Include="DataProvider\IDataProvider.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataProvider\Informix\InformixMerge.cs" />
-    <Compile Include="DataProvider\Informix\InformixSqlOptimizer.cs" />
-    <Compile Include="DataProvider\Informix\InformixTools.cs" />
-    <Compile Include="DataProvider\Informix\InformixFactory.cs" />
-    <Compile Include="DataProvider\Informix\InformixDataProvider.cs" />
-    <Compile Include="DataProvider\Informix\InformixMappingSchema.cs" />
-    <Compile Include="DataProvider\Informix\InformixSchemaProvider.cs" />
-    <Compile Include="DataProvider\Informix\InformixSqlBuilder.cs" />
-    <Compile Include="DataProvider\Informix\InformixBulkCopy.cs" />
     <Compile Include="DataProvider\MultipleRowsHelper.cs" />
     <Compile Include="DataProvider\MySql\MySqlBulkCopy.cs" />
     <Compile Include="DataProvider\MySql\MySqlSqlOptimizer.cs" />
     <Compile Include="DataProvider\MySql\MySqlTools.cs" />
-    <Compile Include="DataProvider\Oracle\OracleXmlTable.cs" />
-    <Compile Include="DataProvider\Oracle\OracleMerge.cs" />
-    <Compile Include="DataProvider\Oracle\OracleBulkCopy.cs" />
-    <Compile Include="DataProvider\Oracle\OracleSqlOptimizer.cs" />
-    <Compile Include="DataProvider\Oracle\OracleTools.cs" />
-    <Compile Include="DataProvider\Oracle\OracleSchemaProvider.cs" />
-    <Compile Include="DataProvider\Oracle\OracleFactory.cs" />
-    <Compile Include="DataProvider\Oracle\OracleDataProvider.cs" />
-    <Compile Include="DataProvider\Oracle\OracleMappingSchema.cs" />
-    <Compile Include="DataProvider\Oracle\OracleSqlBuilder.cs" />
     <Compile Include="DataProvider\PostgreSQL\PostgreSQLBulkCopy.cs" />
     <Compile Include="DataProvider\PostgreSQL\PostgreSQLSqlOptimizer.cs" />
     <Compile Include="DataProvider\PostgreSQL\PostgreSQLTools.cs" />
@@ -138,22 +119,6 @@
     <Compile Include="DataProvider\PostgreSQL\PostgreSQLMappingSchema.cs" />
     <Compile Include="DataProvider\PostgreSQL\PostgreSQLSqlBuilder.cs" />
     <Compile Include="DataProvider\PostgreSQL\PostgreSQLIdentifierQuoteMode.cs" />
-    <Compile Include="DataProvider\SapHana\CalculationViewInputParametersExpressionAttribute.cs" />
-    <Compile Include="DataProvider\SapHana\GetHanaSchemaOptions.cs" />
-    <Compile Include="DataProvider\SapHana\SapHanaOdbcSchemaProvider.cs" />
-    <Compile Include="DataProvider\SapHana\SapHanaOdbcSqlBuilder.cs" />
-    <Compile Include="DataProvider\SapHana\SapHanaOdbcDataProvider.cs" />
-    <Compile Include="DataProvider\SapHana\SapHanaBulkCopy.cs" />
-    <Compile Include="DataProvider\SapHana\SapHanaDataProvider.cs" />
-    <Compile Include="DataProvider\SapHana\SapHanaFactory.cs" />
-    <Compile Include="DataProvider\SapHana\SapHanaMappingSchema.cs" />
-    <Compile Include="DataProvider\SapHana\SapHanaSchemaProvider.cs" />
-    <Compile Include="DataProvider\SapHana\SapHanaSqlBuilder.cs" />
-    <Compile Include="DataProvider\SapHana\SapHanaSqlOptimizer.cs" />
-    <Compile Include="DataProvider\SapHana\SapHanaTools.cs" />
-    <Compile Include="DataProvider\SapHana\ViewWithParametersTableSchema.cs" />
-    <Compile Include="DataProvider\SqlCe\SqlCeBulkCopy.cs" />
-    <Compile Include="DataProvider\SqlCe\SqlCeSqlOptimizer.cs" />
     <Compile Include="DataProvider\SQLite\SQLiteBulkCopy.cs" />
     <Compile Include="DataProvider\SQLite\SQLiteSqlOptimizer.cs" />
     <Compile Include="DataProvider\SqlServer\SqlServer2005SqlOptimizer.cs" />
@@ -161,8 +126,6 @@
     <Compile Include="DataProvider\SqlServer\SqlServerBulkCopy.cs" />
     <Compile Include="DataProvider\SqlServer\SqlServerMerge.cs" />
     <Compile Include="DataProvider\SqlServer\SqlServerSqlOptimizer.cs" />
-    <Compile Include="DataProvider\Sybase\SybaseBulkCopy.cs" />
-    <Compile Include="DataProvider\Sybase\SybaseSqlOptimizer.cs" />
     <Compile Include="DataProvider\DataTools.cs" />
     <Compile Include="Data\BulkCopyOptions.cs" />
     <Compile Include="Data\BulkCopyRowsCopied.cs" />
@@ -206,12 +169,9 @@
     <Compile Include="SchemaProvider\ProcedureInfo.cs" />
     <Compile Include="SchemaProvider\ProcedureParameterInfo.cs" />
     <Compile Include="SchemaProvider\TableInfo.cs" />
-    <Compile Include="DataProvider\SqlCe\SqlCeTools.cs" />
     <Compile Include="DataProvider\SQLite\SQLiteTools.cs" />
     <Compile Include="DataProvider\SqlServer\SqlServerTools.cs" />
     <Compile Include="DataProvider\SqlServer\FreeTextTableExpressionAttribute.cs" />
-    <Compile Include="DataProvider\Sybase\SybaseTools.cs" />
-    <Compile Include="DataProvider\Sybase\SybaseSchemaProvider.cs" />
     <Compile Include="Linq\Builder\AsUpdatableBuilder.cs" />
     <Compile Include="Linq\DefaultDataContextInfo.cs">
       <SubType>Code</SubType>
@@ -244,11 +204,6 @@
     <Compile Include="SchemaProvider\ProcedureSchema.cs" />
     <Compile Include="SchemaProvider\SchemaProviderBase.cs" />
     <Compile Include="SchemaProvider\TableSchema.cs" />
-    <Compile Include="DataProvider\SqlCe\SqlCeSchemaProvider.cs" />
-    <Compile Include="DataProvider\SqlCe\SqlCeFactory.cs" />
-    <Compile Include="DataProvider\SqlCe\SqlCeDataProvider.cs" />
-    <Compile Include="DataProvider\SqlCe\SqlCeMappingSchema.cs" />
-    <Compile Include="DataProvider\SqlCe\SqlCeSqlBuilder.cs" />
     <Compile Include="DataProvider\SQLite\SQLiteDataProvider.cs" />
     <Compile Include="DataProvider\SQLite\SQLiteFactory.cs" />
     <Compile Include="DataProvider\SQLite\SQLiteMappingSchema.cs" />
@@ -266,10 +221,6 @@
     <Compile Include="DataProvider\SqlServer\SqlServerSqlBuilder.cs" />
     <Compile Include="DataProvider\SqlServer\SqlServerVersion.cs" />
     <Compile Include="Common\Tools.cs" />
-    <Compile Include="DataProvider\Sybase\SybaseDataProvider.cs" />
-    <Compile Include="DataProvider\Sybase\SybaseFactory.cs" />
-    <Compile Include="DataProvider\Sybase\SybaseMappingSchema.cs" />
-    <Compile Include="DataProvider\Sybase\SybaseSqlBuilder.cs" />
     <Compile Include="Mapping\ColumnAttribute.cs" />
     <Compile Include="Common\ArrayT.cs" />
     <Compile Include="Common\Configuration.cs" />

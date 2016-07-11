@@ -37,7 +37,7 @@ namespace LinqToDB
 
 			public override ISqlExpression GetExpression(MemberInfo member, params ISqlExpression[] args)
 			{
-				return new SqlExpression(member.GetMemberType(), Name ?? member.Name, SqlQuery.Precedence.Primary) { CanBeNull = CanBeNull };
+                return new SqlExpression(member.GetMemberType(), Name ?? member.Name, SqlQuery.PrecedenceLevel.Primary) { CanBeNull = CanBeNull };
 			}
 		}
 	}

@@ -703,13 +703,13 @@ namespace LinqToDB
 			{
 			}
 
-			public DatePartAttribute(string sqlProvider, string expression, int precedence, bool isExpression, string[] partMapping, int datePartIndex, params int[] argIndices)
+            public DatePartAttribute(string sqlProvider, string expression, PrecedenceLevel precedence, bool isExpression, string[] partMapping, int datePartIndex, params int[] argIndices)
 				: base(sqlProvider, expression, argIndices)
 			{
 				_isExpression  = isExpression;
 				_partMapping   = partMapping;
 				_datePartIndex = datePartIndex;
-				Precedence     = precedence;
+                Precedence     = precedence;
 			}
 
 			readonly bool     _isExpression;
@@ -724,7 +724,7 @@ namespace LinqToDB
 				var type = member.GetMemberType();
 
 				return _isExpression ?
-					                new SqlExpression(type, str, Precedence, ConvertArgs(member, args)) :
+                                    new SqlExpression(type, str, PrecedenceLevel, ConvertArgs(member, args)) :
 					(ISqlExpression)new SqlFunction  (type, str, ConvertArgs(member, args));
 			}
 		}

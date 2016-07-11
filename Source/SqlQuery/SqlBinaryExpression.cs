@@ -8,7 +8,7 @@ namespace LinqToDB.SqlQuery
 	[Serializable, DebuggerDisplay("SQL = {SqlText}")]
 	public class SqlBinaryExpression : ISqlExpression
 	{
-		public SqlBinaryExpression(Type systemType, ISqlExpression expr1, string operation, ISqlExpression expr2, int precedence)
+        public SqlBinaryExpression(Type systemType, ISqlExpression expr1, string operation, ISqlExpression expr2, PrecedenceLevel precedence)
 		{
 			if (expr1     == null) throw new ArgumentNullException("expr1");
 			if (operation == null) throw new ArgumentNullException("operation");
@@ -30,7 +30,7 @@ namespace LinqToDB.SqlQuery
 		public string         Operation  { get; private set;  }
 		public ISqlExpression Expr2      { get; internal set; }
 		public Type           SystemType { get; private set;  }
-		public int            Precedence { get; private set;  }
+        public PrecedenceLevel Precedence { get; private set; }
 
 		#region Overrides
 

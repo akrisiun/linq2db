@@ -210,7 +210,7 @@ namespace LinqToDB.SqlQuery
 					comparer(this, other);
 			}
 
-			public int Precedence
+            public PrecedenceLevel Precedence
 			{
 				get { return LinqToDB.SqlQuery.PrecedenceLevel.Primary; }
 			}
@@ -535,7 +535,7 @@ namespace LinqToDB.SqlQuery
 				return this == other;
 			}
 
-			public int  Precedence { get { return Source.Precedence; } }
+            public PrecedenceLevel Precedence { get { return Source.Precedence; } }
 			public Type SystemType { get { return Source.SystemType; } }
 
 			#endregion
@@ -729,7 +729,7 @@ namespace LinqToDB.SqlQuery
 
 			public class NotExpr : Expr
 			{
-				public NotExpr(ISqlExpression exp1, bool isNot, int precedence)
+                public NotExpr(ISqlExpression exp1, bool isNot, PrecedenceLevel precedence)
 					: base(exp1, precedence)
 				{
 					IsNot = isNot;
@@ -1173,7 +1173,7 @@ namespace LinqToDB.SqlQuery
 
 			#region IPredicate Members
 
-			public int Precedence { get; private set; }
+            public PrecedenceLevel Precedence { get; private set; }
 
 			public    abstract bool              CanBeNull { get; }
 			protected abstract ICloneableElement Clone    (Dictionary<ICloneableElement,ICloneableElement> objectTree, Predicate<ICloneableElement> doClone);
@@ -1239,7 +1239,7 @@ namespace LinqToDB.SqlQuery
 			public ISqlPredicate Predicate { get; set; }
 			public bool          IsOr      { get; set; }
 
-			public int Precedence
+            public PrecedenceLevel Precedence
 			{
 				get
 				{
@@ -1369,7 +1369,7 @@ namespace LinqToDB.SqlQuery
 
 			#region IPredicate Members
 
-			public int Precedence
+            public PrecedenceLevel Precedence
 			{
 				get
 				{
@@ -3524,7 +3524,7 @@ namespace LinqToDB.SqlQuery
 			return this == other;
 		}
 
-		public int Precedence
+        public PrecedenceLevel Precedence
 		{
 			get { return PrecedenceLevel.Unknown; }
 		}

@@ -316,7 +316,7 @@
     <Compile Include="SqlQuery\ISqlPredicate.cs" />
     <Compile Include="SqlQuery\ISqlTableSource.cs" />
     <Compile Include="SqlQuery\IValueContainer.cs" />
-    <Compile Include="SqlQuery\Precedence.cs" />
+    <!-- <Compile Include="SqlQuery\Precedence.cs" /> -->
     <Compile Include="SqlQuery\QueryElementType.cs" />
     <Compile Include="SqlQuery\QueryType.cs" />
     <Compile Include="SqlQuery\QueryVisitor.cs" />

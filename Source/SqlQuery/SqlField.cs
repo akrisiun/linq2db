@@ -81,7 +81,7 @@ namespace LinqToDB.SqlQuery
 			return this == other;
 		}
 
-		public int Precedence
+        public PrecedenceLevel Precedence
 		{
 			get { return PrecedenceLevel.Primary; }
 		}

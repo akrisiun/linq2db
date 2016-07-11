@@ -465,7 +465,7 @@ namespace LinqToDB.SqlQuery
 
 		#region ISqlExpression Members
 
-		public int Precedence
+        public PrecedenceLevel Precedence
 		{
 			get { return PrecedenceLevel.Primary; }
 		}

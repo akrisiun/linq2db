@@ -346,7 +346,7 @@ namespace LinqToDB.SqlQuery
 			return this == other;
 		}
 
-		int ISqlExpression.Precedence
+		PrecedenceLevel ISqlExpression.Precedence
 		{
 			get { return PrecedenceLevel.Unknown; }
 		}

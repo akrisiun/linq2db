@@ -50,7 +50,9 @@ namespace LinqToDB
 
 			public override ISqlExpression GetExpression(MemberInfo member, params ISqlExpression[] args)
 			{
-				return new SqlFunction(member.GetMemberType(), Name ?? member.Name, ConvertArgs(member, args)) { CanBeNull = CanBeNull };
+				return new SqlFunction(member.GetMemberType(), Name ?? member.Name,
+                    PrecedenceLevel.Unknown,
+                    ConvertArgs(member, args)) { CanBeNull = CanBeNull };
 			}
 		}
 	}

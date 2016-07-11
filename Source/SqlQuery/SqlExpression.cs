@@ -5,42 +5,44 @@ using System.Text;
 
 namespace LinqToDB.SqlQuery
 {
-	public class SqlExpression : ISqlExpression
-	{
-		public SqlExpression(Type systemType, string expr, int precedence, params ISqlExpression[] parameters)
-		{
-			if (parameters == null) throw new ArgumentNullException("parameters");
+    public class SqlExpression : ISqlExpression
+    {
+        public SqlExpression(Type systemType, string expr,
+            PrecedenceLevel // int
+                   precedence, params ISqlExpression[] parameters)
+        {
+            if (parameters == null) throw new ArgumentNullException("parameters");
 
-			foreach (var value in parameters)
-				if (value == null) throw new ArgumentNullException("parameters");
+            foreach (var value in parameters)
+                if (value == null) throw new ArgumentNullException("parameters");
 
-			SystemType = systemType;
-			Expr       = expr;
-			Precedence = precedence;
-			Parameters = parameters;
-		}
+            SystemType = systemType;
+            Expr = expr;
+            Precedence = precedence;
+            Parameters = parameters;
+        }
 
-		public SqlExpression(string expr, int precedence, params ISqlExpression[] parameters)
-			: this(null, expr, precedence, parameters)
-		{
-		}
+        public SqlExpression(string expr, PrecedenceLevel precedence, params ISqlExpression[] parameters)
+            : this(null, expr, precedence, parameters)
+        {
+        }
 
-		public SqlExpression(Type systemType, string expr, params ISqlExpression[] parameters)
-			: this(systemType, expr, PrecedenceLevel.Unknown, parameters)
-		{
-		}
+        public SqlExpression(Type systemType, string expr, params ISqlExpression[] parameters)
+            : this(systemType, expr, precedence: PrecedenceLevel.Unknown, parameters: parameters)
+        {
+        }
 
-		public SqlExpression(string expr, params ISqlExpression[] parameters)
-			: this(null, expr, PrecedenceLevel.Unknown, parameters)
-		{
-		}
+        public SqlExpression(string expr, params ISqlExpression[] parameters)
+            : this(null, expr, precedence: PrecedenceLevel.Unknown, parameters: parameters)
+        {
+        }
 
-		public Type             SystemType { get; private set; }
-		public string           Expr       { get; private set; }
-		public int              Precedence { get; private set; }
-		public ISqlExpression[] Parameters { get; private set; }
+        public Type SystemType { get; private set; }
+        public string Expr { get; private set; }
+        public PrecedenceLevel Precedence { get; private set; }
+        public ISqlExpression[] Parameters { get; private set; }
 
-		#region Overrides
+        #region Overrides
 
 #if OVERRIDETOSTRING
 
@@ -51,137 +53,137 @@ namespace LinqToDB.SqlQuery
 
 #endif
 
-		#endregion
+        #endregion
 
-		#region ISqlExpressionWalkable Members
+        #region ISqlExpressionWalkable Members
 
-		ISqlExpression ISqlExpressionWalkable.Walk(bool skipColumns, Func<ISqlExpression,ISqlExpression> func)
-		{
-			for (var i = 0; i < Parameters.Length; i++)
-				Parameters[i] = Parameters[i].Walk(skipColumns, func);
+        ISqlExpression ISqlExpressionWalkable.Walk(bool skipColumns, Func<ISqlExpression, ISqlExpression> func)
+        {
+            for (var i = 0; i < Parameters.Length; i++)
+                Parameters[i] = Parameters[i].Walk(skipColumns, func);
 
-			return func(this);
-		}
+            return func(this);
+        }
 
-		#endregion
+        #endregion
 
-		#region IEquatable<ISqlExpression> Members
+        #region IEquatable<ISqlExpression> Members
 
-		bool IEquatable<ISqlExpression>.Equals(ISqlExpression other)
-		{
-			return Equals(other, DefaultComparer);
-		}
+        bool IEquatable<ISqlExpression>.Equals(ISqlExpression other)
+        {
+            return Equals(other, DefaultComparer);
+        }
 
-		#endregion
+        #endregion
 
-		#region ISqlExpression Members
+        #region ISqlExpression Members
 
-		private bool? _canBeNull;
-		public  bool   CanBeNull
-		{
-			get
-			{
-				if (_canBeNull.HasValue)
-					return _canBeNull.Value;
+        private bool? _canBeNull;
+        public bool CanBeNull
+        {
+            get
+            {
+                if (_canBeNull.HasValue)
+                    return _canBeNull.Value;
 
-				foreach (var value in Parameters)
-					if (value.CanBeNull)
-						return true;
+                foreach (var value in Parameters)
+                    if (value.CanBeNull)
+                        return true;
 
-				return false;
-			}
+                return false;
+            }
 
-			set { _canBeNull = value; }
-		}
+            set { _canBeNull = value; }
+        }
 
-		internal static Func<ISqlExpression,ISqlExpression,bool> DefaultComparer = (x, y) => true;
+        internal static Func<ISqlExpression, ISqlExpression, bool> DefaultComparer = (x, y) => true;
 
-		public bool Equals(ISqlExpression other, Func<ISqlExpression,ISqlExpression,bool> comparer)
-		{
-			if (this == other)
-				return true;
+        public bool Equals(ISqlExpression other, Func<ISqlExpression, ISqlExpression, bool> comparer)
+        {
+            if (this == other)
+                return true;
 
-			var expr = other as SqlExpression;
+            var expr = other as SqlExpression;
 
-			if (expr == null || SystemType != expr.SystemType || Expr != expr.Expr || Parameters.Length != expr.Parameters.Length)
-				return false;
+            if (expr == null || SystemType != expr.SystemType || Expr != expr.Expr || Parameters.Length != expr.Parameters.Length)
+                return false;
 
-			for (var i = 0; i < Parameters.Length; i++)
-				if (!Parameters[i].Equals(expr.Parameters[i], comparer))
-					return false;
+            for (var i = 0; i < Parameters.Length; i++)
+                if (!Parameters[i].Equals(expr.Parameters[i], comparer))
+                    return false;
 
-			return comparer(this, other);
-		}
-	
-		#endregion
+            return comparer(this, other);
+        }
 
-		#region ICloneableElement Members
+        #endregion
 
-		public ICloneableElement Clone(Dictionary<ICloneableElement, ICloneableElement> objectTree, Predicate<ICloneableElement> doClone)
-		{
-			if (!doClone(this))
-				return this;
+        #region ICloneableElement Members
 
-			ICloneableElement clone;
+        public ICloneableElement Clone(Dictionary<ICloneableElement, ICloneableElement> objectTree, Predicate<ICloneableElement> doClone)
+        {
+            if (!doClone(this))
+                return this;
 
-			if (!objectTree.TryGetValue(this, out clone))
-			{
-				objectTree.Add(this, clone = new SqlExpression(
-					SystemType,
-					Expr,
-					Precedence,
-					Parameters.Select(e => (ISqlExpression)e.Clone(objectTree, doClone)).ToArray()));
-			}
+            ICloneableElement clone;
 
-			return clone;
-		}
+            if (!objectTree.TryGetValue(this, out clone))
+            {
+                objectTree.Add(this, clone = new SqlExpression(
+                    SystemType,
+                    Expr,
+                    Precedence,
+                    Parameters.Select(e => (ISqlExpression)e.Clone(objectTree, doClone)).ToArray()));
+            }
 
-		#endregion
+            return clone;
+        }
 
-		#region IQueryElement Members
+        #endregion
 
-		public QueryElementType ElementType { get { return QueryElementType.SqlExpression; } }
+        #region IQueryElement Members
 
-		StringBuilder IQueryElement.ToString(StringBuilder sb, Dictionary<IQueryElement,IQueryElement> dic)
-		{
-			var len = sb.Length;
-			var ss  = Parameters.Select(p =>
-			{
-				p.ToString(sb, dic);
-				var s = sb.ToString(len, sb.Length - len);
-				sb.Length = len;
-				return (object)s;
-			});
-			
-			return sb.AppendFormat(Expr, ss.ToArray());
-		}
+        public QueryElementType ElementType { get { return QueryElementType.SqlExpression; } }
 
-		#endregion
+        StringBuilder IQueryElement.ToString(StringBuilder sb, Dictionary<IQueryElement, IQueryElement> dic)
+        {
+            var len = sb.Length;
+            var ss = Parameters.Select(p =>
+            {
+                p.ToString(sb, dic);
+                var s = sb.ToString(len, sb.Length - len);
+                sb.Length = len;
+                return (object)s;
+            });
 
-		#region Public Static Members
+            return sb.AppendFormat(Expr, ss.ToArray());
+        }
 
-		public static bool NeedsEqual(IQueryElement ex)
-		{
-			switch (ex.ElementType)
-			{
-				case QueryElementType.SqlParameter:
-				case QueryElementType.SqlField    :
-				case QueryElementType.Column      : return true;
-				case QueryElementType.SqlFunction :
+        #endregion
 
-					var f = (SqlFunction)ex;
+        #region Public Static Members
 
-					switch (f.Name)
-					{
-						case "EXISTS" : return false;
-					}
+        public static bool NeedsEqual(IQueryElement ex)
+        {
+            switch (ex.ElementType)
+            {
+                case QueryElementType.SqlParameter:
+                case QueryElementType.SqlField:
+                case QueryElementType.Column: return true;
+                case QueryElementType.SqlFunction:
 
-					return true;
-			}
+                    var f = (SqlFunction)ex;
 
-			return false;
-		}
+                    switch (f.Name)
+                    {
+                        case "EXISTS": return false;
+                    }
 
-		#endregion
-	}
+                    return true;
+            }
+
+            return false;
+        }
+
+        #endregion
+    }
 }
