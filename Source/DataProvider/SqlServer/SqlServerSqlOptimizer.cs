@@ -32,7 +32,7 @@ namespace LinqToDB.DataProvider.SqlServer
 									{
 										return new SqlBinaryExpression(
 											be.Expr2.SystemType,
-                                            PrecedenceLevel.Unknown,
+                                            new PrecedenceLevel(PrecedenceLevel.Unknown),
 											new SqlFunction(typeof(int), "Convert", SqlDataType.Int32, be.Expr1),
 											be.Operation,
 											be.Expr2);

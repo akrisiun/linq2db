@@ -21,21 +21,21 @@ namespace LinqToDB
 			public ExpressionAttribute(string expression)
 			{
 				Expression = expression;
-				Precedence = SqlQuery.Precedence.Primary;
+                Precedence = SqlQuery.PrecedenceLevel.Primary;
 			}
 
 			public ExpressionAttribute(string expression, params int[] argIndices)
 			{
 				Expression = expression;
 				ArgIndices = argIndices;
-				Precedence = SqlQuery.Precedence.Primary;
+                Precedence = SqlQuery.PrecedenceLevel.Primary;
 			}
 
 			public ExpressionAttribute(string configuration, string expression)
 			{
 				Configuration = configuration;
 				Expression    = expression;
-				Precedence    = SqlQuery.Precedence.Primary;
+                Precedence = SqlQuery.PrecedenceLevel.Primary;
 			}
 
 			public ExpressionAttribute(string configuration, string expression, params int[] argIndices)
@@ -43,7 +43,7 @@ namespace LinqToDB
 				Configuration = configuration;
 				Expression    = expression;
 				ArgIndices    = argIndices;
-				Precedence    = SqlQuery.Precedence.Primary;
+                Precedence = SqlQuery.PrecedenceLevel.Primary;
 			}
 
 			public string Expression       { get; set; }

@@ -175,8 +175,8 @@ namespace Tests._Create
 		}
 
 		[Test, IncludeDataContextSource(ProviderName.DB2)]           public void DB2          (string ctx) { RunScript(ctx,          "\nGO\n",  "DB2");           }
-		[Test, IncludeDataContextSource(ProviderName.Informix)]      public void Informix     (string ctx) { RunScript(ctx,          "\nGO\n",  "Informix", InformixAction); }
-		[Test, IncludeDataContextSource(ProviderName.OracleNative)]  public void Oracle       (string ctx) { RunScript(ctx,          "\n/\n",   "Oracle");        }
+        //[Test, IncludeDataContextSource(ProviderName.Informix)]      public void Informix     (string ctx) { RunScript(ctx,          "\nGO\n",  "Informix", InformixAction); }
+        //[Test, IncludeDataContextSource(ProviderName.OracleNative)]  public void Oracle       (string ctx) { RunScript(ctx,          "\n/\n",   "Oracle");        }
 		[Test, IncludeDataContextSource(ProviderName.Firebird)]      public void Firebird     (string ctx) { RunScript(ctx,          "COMMIT;", "Firebird");      }
 		[Test, IncludeDataContextSource(ProviderName.PostgreSQL)]    public void PostgreSQL   (string ctx) { RunScript(ctx,          "\nGO\n",  "PostgreSQL");    }
 		[Test, IncludeDataContextSource(ProviderName.MySql)]         public void MySql        (string ctx) { RunScript(ctx,          "\nGO\n",  "MySql");         }
@@ -190,11 +190,11 @@ namespace Tests._Create
 		[Test, IncludeDataContextSource(TestProvName.SqlAzure)]      public void SqlAzure2012 (string ctx) { RunScript(ctx,          "\nGO\n",  "SqlServer");     }
 		[Test, IncludeDataContextSource(ProviderName.SqlCe)]         public void SqlCe        (string ctx) { RunScript(ctx,          "\nGO\n",  "SqlCe");         }
 		[Test, IncludeDataContextSource(ProviderName.SqlCe)]         public void SqlCeData    (string ctx) { RunScript(ctx+ ".Data", "\nGO\n",  "SqlCe");         }
-		[Test, IncludeDataContextSource(ProviderName.SQLite)]        public void SQLite       (string ctx) { RunScript(ctx,          "\nGO\n",  "SQLite",   SQLiteAction); }
-		[Test, IncludeDataContextSource(ProviderName.SQLite)]        public void SQLiteData   (string ctx) { RunScript(ctx+ ".Data", "\nGO\n",  "SQLite",   SQLiteAction); }
+        //[Test, IncludeDataContextSource(ProviderName.SQLite)]        public void SQLite       (string ctx) { RunScript(ctx,          "\nGO\n",  "SQLite",   SQLiteAction); }
+        //[Test, IncludeDataContextSource(ProviderName.SQLite)]        public void SQLiteData   (string ctx) { RunScript(ctx+ ".Data", "\nGO\n",  "SQLite",   SQLiteAction); }
 		[Test, IncludeDataContextSource(ProviderName.Access)]        public void Access       (string ctx) { RunScript(ctx,          "\nGO\n",  "Access",   AccessAction); }
 		[Test, IncludeDataContextSource(ProviderName.Access)]        public void AccessData   (string ctx) { RunScript(ctx+ ".Data", "\nGO\n",  "Access",   AccessAction); }
-		[Test, IncludeDataContextSource(ProviderName.SapHana)]       public void SapHana      (string ctx) { RunScript(ctx,          ";;\n"  ,  "SapHana");       }
+        //[Test, IncludeDataContextSource(ProviderName.SapHana)]       public void SapHana      (string ctx) { RunScript(ctx,          ";;\n"  ,  "SapHana");       }
 
 		static void AccessAction(IDbConnection connection)
 		{
@@ -231,42 +231,42 @@ namespace Tests._Create
 			}
 		}
 
-		static void SQLiteAction(IDbConnection connection)
-		{
-			using (var conn = LinqToDB.DataProvider.SQLite.SQLiteTools.CreateDataConnection(connection))
-			{
-				conn.Execute(@"
-					UPDATE AllTypes
-					SET
-						binaryDataType           = @binaryDataType,
-						varbinaryDataType        = @varbinaryDataType,
-						imageDataType            = @imageDataType,
-						uniqueidentifierDataType = @uniqueidentifierDataType
-					WHERE ID = 2",
-					new
-					{
-						binaryDataType           = new byte[] { 1 },
-						varbinaryDataType        = new byte[] { 2 },
-						imageDataType            = new byte[] { 0, 0, 0, 3 },
-						uniqueidentifierDataType = new Guid("{6F9619FF-8B86-D011-B42D-00C04FC964FF}"),
-					});
-			}
-		}
+//        static void SQLiteAction(IDbConnection connection)
+//        {
+//            using (var conn = LinqToDB.DataProvider.SQLite.SQLiteTools.CreateDataConnection(connection))
+//            {
+//                conn.Execute(@"
+//					UPDATE AllTypes
+//					SET
+//						binaryDataType           = @binaryDataType,
+//						varbinaryDataType        = @varbinaryDataType,
+//						imageDataType            = @imageDataType,
+//						uniqueidentifierDataType = @uniqueidentifierDataType
+//					WHERE ID = 2",
+//                    new
+//                    {
+//                        binaryDataType           = new byte[] { 1 },
+//                        varbinaryDataType        = new byte[] { 2 },
+//                        imageDataType            = new byte[] { 0, 0, 0, 3 },
+//                        uniqueidentifierDataType = new Guid("{6F9619FF-8B86-D011-B42D-00C04FC964FF}"),
+//                    });
+//            }
+//        }
 
-		static void InformixAction(IDbConnection connection)
-		{
-			using (var conn = LinqToDB.DataProvider.Informix.InformixTools.CreateDataConnection(connection))
-			{
-				conn.Execute(@"
-					UPDATE AllTypes
-					SET
-						byteDataType = ?
-					WHERE ID = 2",
-					new
-					{
-						blob = new byte[] { 1, 2 },
-					});
-			}
-		}
+//        static void InformixAction(IDbConnection connection)
+//        {
+//            using (var conn = LinqToDB.DataProvider.Informix.InformixTools.CreateDataConnection(connection))
+//            {
+//                conn.Execute(@"
+//					UPDATE AllTypes
+//					SET
+//						byteDataType = ?
+//					WHERE ID = 2",
+//                    new
+//                    {
+//                        blob = new byte[] { 1, 2 },
+//                    });
+//            }
+//        }
 	}
 }

@@ -5,6 +5,20 @@ using System.Data.Common;
 using System.IO;
 using System.Linq;
 
+//namespace System.Data
+//{
+//    public static class DExt
+//    {
+//        //EnumerableRowCollection
+//        public static IEnumerable<DataRow> AsEnumerable(this DataTable source)
+//        {
+//            foreach (DataRow row in source.Rows)
+//                yield return row;
+//        }
+//    }
+//}
+
+
 namespace LinqToDB.DataProvider.Firebird
 {
 	using Common;
@@ -18,29 +32,32 @@ namespace LinqToDB.DataProvider.Firebird
 			return Path.GetFileNameWithoutExtension(base.GetDatabaseName(dbConnection));
 		}
 
-		protected override List<TableInfo> GetTables(DataConnection dataConnection)
-		{
-			var tables = ((DbConnection)dataConnection.Connection).GetSchema("Tables");
+        protected override List<TableInfo> GetTables(DataConnection dataConnection)
+        {
+            return null;
+        }
+        //{
+        //    var tables = ((DbConnection)dataConnection.Connection).GetSchema("Tables");
 
-			return
-			(
-				from t in tables.AsEnumerable()
-				where !ConvertTo<bool>.From(t["IS_SYSTEM_TABLE"])
-				let catalog = t.Field<string>("TABLE_CATALOG")
-				let schema  = t.Field<string>("OWNER_NAME")
-				let name    = t.Field<string>("TABLE_NAME")
-				select new TableInfo
-				{
-					TableID         = catalog + '.' + t.Field<string>("TABLE_SCHEMA") + '.' + name,
-					CatalogName     = catalog,
-					SchemaName      = null, //schema,
-					TableName       = name,
-					IsDefaultSchema = schema == "SYSDBA",
-					IsView          = t.Field<string>("TABLE_TYPE") == "VIEW",
-					Description     = t.Field<string>("DESCRIPTION")
-				}
-			).ToList();
-		}
+        //    return
+        //    (
+        //        from t in tables.AsEnumerable()
+        //        where !ConvertTo<bool>.From(t["IS_SYSTEM_TABLE"])
+        //        let catalog = t.Field<string>("TABLE_CATALOG")
+        //        let schema  = t.Field<string>("OWNER_NAME")
+        //        let name    = t.Field<string>("TABLE_NAME")
+        //        select new TableInfo
+        //        {
+        //            TableID         = catalog + '.' + t.Field<string>("TABLE_SCHEMA") + '.' + name,
+        //            CatalogName     = catalog,
+        //            SchemaName      = null, //schema,
+        //            TableName       = name,
+        //            IsDefaultSchema = schema == "SYSDBA",
+        //            IsView          = t.Field<string>("TABLE_TYPE") == "VIEW",
+        //            Description     = t.Field<string>("DESCRIPTION")
+        //        }
+        //    ).ToList();
+        //}
 
 		protected override List<PrimaryKeyInfo> GetPrimaryKeys(DataConnection dataConnection)
 		{

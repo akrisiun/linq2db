@@ -883,7 +883,7 @@ namespace LinqToDB.SqlQuery
 			}
 			else
 			{
-				if (where1.SearchCondition.Precedence < PrecedenceLevel.LogicalConjunction)
+				if (where1.SearchCondition.Precedence.IsLess(PrecedenceLevel.LogicalConjunction))
 				{
 					var sc1 = new SelectQuery.SearchCondition();
 
@@ -893,7 +893,7 @@ namespace LinqToDB.SqlQuery
 					where1.SearchCondition.Conditions.Add(new SelectQuery.Condition(false, sc1));
 				}
 
-				if (where2.SearchCondition.Precedence < PrecedenceLevel.LogicalConjunction)
+				if (where2.SearchCondition.Precedence.IsLess(PrecedenceLevel.LogicalConjunction))
 				{
 					var sc2 = new SelectQuery.SearchCondition();
 

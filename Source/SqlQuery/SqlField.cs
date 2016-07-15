@@ -83,7 +83,7 @@ namespace LinqToDB.SqlQuery
 
         public PrecedenceLevel Precedence
 		{
-			get { return PrecedenceLevel.Primary; }
+			get { return new PrecedenceLevel(PrecedenceLevel.Primary); }
 		}
 
 		#endregion

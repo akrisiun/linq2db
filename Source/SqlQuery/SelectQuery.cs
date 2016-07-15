@@ -212,7 +212,7 @@ namespace LinqToDB.SqlQuery
 
             public PrecedenceLevel Precedence
 			{
-				get { return LinqToDB.SqlQuery.PrecedenceLevel.Primary; }
+				get { return new PrecedenceLevel(LinqToDB.SqlQuery.PrecedenceLevel.Primary); }
 			}
 
 			public Type SystemType
@@ -681,7 +681,7 @@ namespace LinqToDB.SqlQuery
 				}
 
 				public Expr([JetBrains.Annotations.NotNull] ISqlExpression exp1)
-					: base(exp1.Precedence)
+					: base(exp1.Precedence.Id)
 				{
 					if (exp1 == null) throw new ArgumentNullException("exp1");
 
@@ -711,7 +711,7 @@ namespace LinqToDB.SqlQuery
 					ICloneableElement clone;
 
 					if (!objectTree.TryGetValue(this, out clone))
-						objectTree.Add(this, clone = new Expr((ISqlExpression)Expr1.Clone(objectTree, doClone), Precedence));
+						objectTree.Add(this, clone = new Expr((ISqlExpression)Expr1.Clone(objectTree, doClone), Precedence.Id));
 
 					return clone;
 				}
@@ -729,7 +729,7 @@ namespace LinqToDB.SqlQuery
 
 			public class NotExpr : Expr
 			{
-                public NotExpr(ISqlExpression exp1, bool isNot, PrecedenceLevel precedence)
+                public NotExpr(ISqlExpression exp1, bool isNot, int precedence)
 					: base(exp1, precedence)
 				{
 					IsNot = isNot;
@@ -745,7 +745,7 @@ namespace LinqToDB.SqlQuery
 					ICloneableElement clone;
 
 					if (!objectTree.TryGetValue(this, out clone))
-						objectTree.Add(this, clone = new NotExpr((ISqlExpression)Expr1.Clone(objectTree, doClone), IsNot, Precedence));
+						objectTree.Add(this, clone = new NotExpr((ISqlExpression)Expr1.Clone(objectTree, doClone), IsNot, Precedence.Id));
 
 					return clone;
 				}
@@ -1112,7 +1112,7 @@ namespace LinqToDB.SqlQuery
 			public class FuncLike : Predicate
 			{
 				public FuncLike(SqlFunction func)
-					: base(func.Precedence)
+					: base(func.Precedence.Id)
 				{
 					Function = func;
 				}
@@ -1168,7 +1168,7 @@ namespace LinqToDB.SqlQuery
 
 			protected Predicate(int precedence)
 			{
-				Precedence = precedence;
+                Precedence = new PrecedenceLevel(precedence);
 			}
 
 			#region IPredicate Members
@@ -1244,9 +1244,9 @@ namespace LinqToDB.SqlQuery
 				get
 				{
 					return
-						IsNot ? PrecedenceLevel.LogicalNegation :
+						new PrecedenceLevel(IsNot ? PrecedenceLevel.LogicalNegation :
 						IsOr  ? PrecedenceLevel.LogicalDisjunction :
-						        PrecedenceLevel.LogicalConjunction;
+						        PrecedenceLevel.LogicalConjunction);
 				}
 			}
 
@@ -1373,13 +1373,13 @@ namespace LinqToDB.SqlQuery
 			{
 				get
 				{
-					if (_conditions.Count == 0) return PrecedenceLevel.Unknown;
-					if (_conditions.Count == 1) return _conditions[0].Precedence;
+					if (_conditions.Count == 0) return new PrecedenceLevel(PrecedenceLevel.Unknown);
+					if (_conditions.Count == 1) return new PrecedenceLevel(_conditions[0].Precedence);
 
-					return _conditions.Select(_ =>
+                    return new PrecedenceLevel(_conditions.Select(_ =>
 						_.IsNot ? PrecedenceLevel.LogicalNegation :
 						_.IsOr  ? PrecedenceLevel.LogicalDisjunction :
-						          PrecedenceLevel.LogicalConjunction).Min();
+						          PrecedenceLevel.LogicalConjunction).Min());
 				}
 			}
 
@@ -3526,7 +3526,7 @@ namespace LinqToDB.SqlQuery
 
         public PrecedenceLevel Precedence
 		{
-			get { return PrecedenceLevel.Unknown; }
+			get { return new PrecedenceLevel(PrecedenceLevel.Unknown); }
 		}
 
 		public Type SystemType

@@ -24,6 +24,9 @@ namespace LinqToDB.SqlQuery
         {
             return obj is PrecedenceLevel ? this.Id == (obj as PrecedenceLevel).Id : false;
         }
+        public override int GetHashCode() { return Id;}
+
+        public bool IsLess(int id) { return this.Id < id; }
         public bool IsLess(object obj)
         {
             return obj is PrecedenceLevel ? this.Id < (obj as PrecedenceLevel).Id : false;

@@ -38,7 +38,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\bin\</OutputPath>
     <DefineConstants>TRACE;DEBUG;FW4;MOBILE1</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>3</WarningLevel>
@@ -130,21 +130,12 @@
       <HintPath>..\..\packages\FirebirdSql.Data.FirebirdClient.4.10.0.0\lib\net45\FirebirdSql.Data.FirebirdClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="IBM.Data.DB2, Version=9.7.4.4, Culture=neutral, PublicKeyToken=7c307b91aa13d208, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Redist\IBM\IBM.Data.DB2.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="IBM.Data.Informix, Version=9.7.4.4, Culture=neutral, PublicKeyToken=7c307b91aa13d208, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Redist\IBM\IBM.Data.Informix.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.SqlServer.Types.11.0.2\lib\net20\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="MiniProfiler, Version=3.2.0.157, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MiniProfiler.3.2.0.157\lib\net40\MiniProfiler.dll</HintPath>
       <Private>True</Private>
@@ -157,9 +148,25 @@
       <HintPath>..\..\packages\Npgsql.3.0.6\lib\net45\Npgsql.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="nunit.core, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnitTestAdapter.2.0.0\lib\nunit.core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.core.interfaces, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnitTestAdapter.2.0.0\lib\nunit.core.interfaces.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="nunit.framework, Version=3.2.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NUnit.3.2.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.util, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnitTestAdapter.2.0.0\lib\nunit.util.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="NUnit.VisualStudio.TestAdapter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4cb40d35494691ac, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnitTestAdapter.2.0.0\lib\NUnit.VisualStudio.TestAdapter.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Oracle.DataAccess, Version=2.112.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
       <HintPath>..\..\packages\Oracle.DataAccess.x86.2.112.1.0\lib\Oracle.DataAccess.dll</HintPath>
@@ -168,14 +175,6 @@
     <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Oracle.ManagedDataAccess.12.1.24160419\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Sap.Data.Hana.v4.5, Version=1.0.80.0, Culture=neutral, PublicKeyToken=0326b8ea63db4bc4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Redist\SAPHana\Sap.Data.Hana.v4.5.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Sybase.AdoNet45.AseClient">
-      <HintPath>..\..\Redist\Sybase\Sybase.AdoNet45.AseClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Collections.Immutable">
@@ -222,9 +221,6 @@
     <Compile Include="Common\ChangeTypeTests.cs" />
     <Compile Include="Common\ConvertTests.cs" />
     <Compile Include="Common\DefaultValueTests.cs" />
-    <Compile Include="DataProvider\SapHanaTests.cs" />
-    <Compile Include="DataProvider\InformixTests.cs" />
-    <Compile Include="DataProvider\DB2Tests.cs" />
     <Compile Include="DataProvider\FirebirdTests.cs" />
     <Compile Include="DataProvider\MySqlTests.cs" />
     <Compile Include="DataProvider\DataProviderTestBase.cs" />
@@ -244,14 +240,11 @@
     <Compile Include="Linq\LoadWithTests.cs" />
     <Compile Include="Linq\EnumMappingTests.cs" />
     <Compile Include="Linq\ExplicitInterfaceTests.cs" />
-    <Compile Include="Linq\ParameterTests.cs" />
     <Compile Include="Linq\AllAnyTests.cs" />
-    <Compile Include="Linq\FSharpTests.cs" />
     <Compile Include="Mapping\FluentMappingTests.cs" />
     <Compile Include="Samples\JoinOperatorTests.cs" />
     <Compile Include="SchemaProvider\SchemaProviderTests.cs" />
     <Compile Include="DataProvider\SybaseTests.cs" />
-    <Compile Include="DataProvider\SQLiteTests.cs" />
     <Compile Include="DataProvider\ExpressionTests.cs" />
     <Compile Include="Data\DataExtensionsTests.cs" />
     <Compile Include="Data\DataConnectionTests.cs" />
@@ -291,9 +284,7 @@
     <Compile Include="Linq\IdlTests.cs" />
     <Compile Include="Linq\L2SAttributeTests.cs" />
     <Compile Include="Linq\ParserTests.cs" />
-    <Compile Include="DataProvider\OracleTests.cs" />
     <Compile Include="Linq\TableFunctionTests.cs" />
-    <Compile Include="Linq\VisualBasicTests.cs" />
     <Compile Include="Update\MergeTests.cs" />
     <Compile Include="Update\UpdateTests.cs" />
     <Compile Include="Update\DeleteTests.cs" />
@@ -303,7 +294,6 @@
     <Compile Include="Exceptions\InheritanceTests.cs" />
     <Compile Include="Linq\InheritanceTests.cs" />
     <Compile Include="DataProvider\AccessTests.cs" />
-    <Compile Include="DataProvider\SqlCeTests.cs" />
     <Compile Include="Linq\SetTests.cs" />
     <Compile Include="Linq\SubQueryTests.cs" />
     <Compile Include="Linq\TypesTests.cs" />
@@ -463,8 +453,7 @@
     <PostBuildEvent>if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
 xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
 if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
-xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"
-if not exist "$(TargetDir)sybdrvado20.dll" xcopy /d /c /y "$(SolutionDir)Redist\Sybase\*.*" "$(TargetDir)"</PostBuildEvent>
+xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

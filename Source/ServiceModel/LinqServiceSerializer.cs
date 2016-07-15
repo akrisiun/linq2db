@@ -590,7 +590,7 @@ namespace LinqToDB.ServiceModel
 
 							Append(elem.SystemType);
 							Append(elem.Name);
-							Append(elem.Precedence);
+							Append(elem.Precedence.Id);
 							Append(elem.Parameters);
 
 							break;
@@ -633,7 +633,7 @@ namespace LinqToDB.ServiceModel
 
 							Append(elem.SystemType);
 							Append(elem.Expr);
-							Append(elem.Precedence);
+							Append(elem.Precedence.Id);
 							Append(elem.Parameters);
 
 							break;
@@ -647,7 +647,7 @@ namespace LinqToDB.ServiceModel
 							Append(elem.Expr1);
 							Append(elem.Operation);
 							Append(elem.Expr2);
-							Append(elem.Precedence);
+							Append(elem.Precedence.Id);
 
 							break;
 						}
@@ -726,7 +726,7 @@ namespace LinqToDB.ServiceModel
 							var elem = (SelectQuery.Predicate.Expr)e;
 
 							Append(elem.Expr1);
-							Append(elem.Precedence);
+                            Append(elem.Precedence.Id);
 
 							break;
 						}
@@ -737,7 +737,7 @@ namespace LinqToDB.ServiceModel
 
 							Append(elem.Expr1);
 							Append(elem.IsNot);
-							Append(elem.Precedence);
+                            Append(elem.Precedence.Id);
 
 							break;
 						}

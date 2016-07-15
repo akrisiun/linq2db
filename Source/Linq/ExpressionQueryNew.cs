@@ -46,13 +46,13 @@ namespace LinqToDB.Linq
 
                 if (_sqlTextHolder == null || hasQueryHints)
                 {
-                    //					var info    = GetQuery(Expression, true);
-                    //					var sqlText = info.GetSqlText(_dataContext, Expression, null/*Parameters*/, 0);
-                    //
-                    //					if (hasQueryHints)
-                    //						return sqlText;
-                    //
-                    //					_sqlTextHolder = sqlText;
+                    QueryNew<T> info = GetQuery(Expression, true);
+                    var sqlText = info.GetSqlText(_dataContext, Expression, null/*Parameters*/, 0);
+
+                    if (hasQueryHints)
+                        return sqlText;
+
+                    _sqlTextHolder = sqlText;
                 }
 
                 return _sqlTextHolder;

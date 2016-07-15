@@ -885,7 +885,7 @@ namespace LinqToDB.SqlQuery
 						var parms = Convert(func.Parameters, action);
 
 						if (parms != null && !ReferenceEquals(parms, func.Parameters))
-							newElement = new SqlFunction(func.SystemType, func.Name, func.Precedence, parms);
+							newElement = new SqlFunction(func.SystemType, func.Name, func.Precedence.Id, parms);
 
 						break;
 					}
@@ -896,7 +896,7 @@ namespace LinqToDB.SqlQuery
 						var parameter = Convert(expr.Parameters, action);
 
 						if (parameter != null && !ReferenceEquals(parameter, expr.Parameters))
-							newElement = new SqlExpression(expr.SystemType, expr.Expr, expr.Precedence, parameter);
+							newElement = new SqlExpression(expr.SystemType, expr.Expr, expr.Precedence.Id, parameter);
 
 						break;
 					}
@@ -1016,7 +1016,7 @@ namespace LinqToDB.SqlQuery
 						var e = (ISqlExpression)ConvertInternal(p.Expr1, action);
 
 						if (e != null && !ReferenceEquals(p.Expr1, e))
-							newElement = new SelectQuery.Predicate.Expr(e, p.Precedence);
+							newElement = new SelectQuery.Predicate.Expr(e, p.Precedence.Id);
 
 						break;
 					}
@@ -1027,7 +1027,7 @@ namespace LinqToDB.SqlQuery
 						var e = (ISqlExpression)ConvertInternal(p.Expr1, action);
 
 						if (e != null && !ReferenceEquals(p.Expr1, e))
-							newElement = new SelectQuery.Predicate.NotExpr(e, p.IsNot, p.Precedence);
+							newElement = new SelectQuery.Predicate.NotExpr(e, p.IsNot, p.Precedence.Id);
 
 						break;
 					}

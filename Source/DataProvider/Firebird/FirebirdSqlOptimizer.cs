@@ -88,7 +88,7 @@ namespace LinqToDB.DataProvider.Firebird
 					case "&": return new SqlFunction(be.SystemType, "Bin_And", be.Expr1, be.Expr2);
 					case "|": return new SqlFunction(be.SystemType, "Bin_Or",  be.Expr1, be.Expr2);
 					case "^": return new SqlFunction(be.SystemType, "Bin_Xor", be.Expr1, be.Expr2);
-					case "+": return be.SystemType == typeof(string)? new SqlBinaryExpression(be.SystemType, be.Expr1, "||", be.Expr2, be.Precedence): expr;
+					case "+": return be.SystemType == typeof(string)? new SqlBinaryExpression(be.SystemType, be.Expr1, "||", be.Expr2, be.Precedence.Id): expr;
 				}
 			}
 			else if (expr is SqlFunction)

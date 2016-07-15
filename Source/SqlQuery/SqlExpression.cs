@@ -8,8 +8,7 @@ namespace LinqToDB.SqlQuery
     public class SqlExpression : ISqlExpression
     {
         public SqlExpression(Type systemType, string expr,
-            PrecedenceLevel // int
-                   precedence, params ISqlExpression[] parameters)
+            int precedence, params ISqlExpression[] parameters)
         {
             if (parameters == null) throw new ArgumentNullException("parameters");
 
@@ -18,19 +17,18 @@ namespace LinqToDB.SqlQuery
 
             SystemType = systemType;
             Expr = expr;
-            Precedence = precedence;
+            Precedence = new PrecedenceLevel(precedence);
             Parameters = parameters;
         }
 
-        public SqlExpression(string expr, PrecedenceLevel precedence, params ISqlExpression[] parameters)
-            : this(null, expr, precedence, parameters)
-        {
-        }
+        public SqlExpression(Type systemType, string expr, PrecedenceLevel precedence, params ISqlExpression[] parameters)
+            : this(systemType, expr, precedence.Id, parameters) { }
+
+        public SqlExpression(string expr, int precedence, params ISqlExpression[] parameters)
+            : this(null, expr, precedence, parameters) { }
 
         public SqlExpression(Type systemType, string expr, params ISqlExpression[] parameters)
-            : this(systemType, expr, precedence: PrecedenceLevel.Unknown, parameters: parameters)
-        {
-        }
+            : this(systemType, expr, precedence: PrecedenceLevel.Unknown, parameters: parameters) { }
 
         public SqlExpression(string expr, params ISqlExpression[] parameters)
             : this(null, expr, precedence: PrecedenceLevel.Unknown, parameters: parameters)

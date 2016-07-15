@@ -37,7 +37,7 @@ namespace LinqToDB.DataProvider.PostgreSQL
 				switch (be.Operation)
 				{
 					case "^": return new SqlBinaryExpression(be.SystemType, be.Expr1, "#", be.Expr2);
-					case "+": return be.SystemType == typeof(string)? new SqlBinaryExpression(be.SystemType, be.Expr1, "||", be.Expr2, be.Precedence): expr;
+					case "+": return be.SystemType == typeof(string)? new SqlBinaryExpression(be.SystemType, be.Expr1, "||", be.Expr2, be.Precedence.Id): expr;
 				}
 			}
 			else if (expr is SqlFunction)

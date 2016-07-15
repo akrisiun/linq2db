@@ -574,7 +574,7 @@ namespace LinqToDB.SqlProvider
 				BuildExpression(expr.Column, false, false);
 
 				StringBuilder.Append(" = ");
-				BuildExpression(PrecedenceLevel.Comparison, expr.Expression);
+				BuildExpression(new PrecedenceLevel(PrecedenceLevel.Comparison), expr.Expression);
 
 				if (i + 1 < exprs.Count)
 					StringBuilder.Append(" AND");
@@ -1030,7 +1030,7 @@ namespace LinqToDB.SqlProvider
 			if (buildOn)
 			{
 				if (join.Condition.Conditions.Count != 0)
-					BuildSearchCondition(PrecedenceLevel.Unknown, join.Condition);
+					BuildSearchCondition(new PrecedenceLevel(PrecedenceLevel.Unknown), join.Condition);
 				else
 					StringBuilder.Append("1=1");
 			}
@@ -1262,14 +1262,14 @@ namespace LinqToDB.SqlProvider
 
 		protected virtual void BuildWhereSearchCondition(SelectQuery.SearchCondition condition)
 		{
-			BuildSearchCondition(PrecedenceLevel.Unknown, condition);
+			BuildSearchCondition(new PrecedenceLevel(PrecedenceLevel.Unknown), condition);
 		}
 
 		protected virtual void BuildSearchCondition(SelectQuery.SearchCondition condition)
 		{
 			var isOr = (bool?)null;
 			var len  = StringBuilder.Length;
-			var parentPrecedence = condition.Precedence + 1;
+			var parentPrecedence = new PrecedenceLevel(condition.Precedence.Id + 1);
 
 			foreach (var cond in condition.Conditions)
 			{
@@ -1294,7 +1294,7 @@ namespace LinqToDB.SqlProvider
 
 				var precedence = GetPrecedence(cond.Predicate);
 
-				BuildPredicate(cond.IsNot ? PrecedenceLevel.LogicalNegation : parentPrecedence, precedence, cond.Predicate);
+				BuildPredicate(cond.IsNot ? PrecedenceLevel.LogicalNegation : parentPrecedence.Id, precedence.Id, cond.Predicate);
 
 				isOr = cond.IsOr;
 			}
@@ -1422,7 +1422,7 @@ namespace LinqToDB.SqlProvider
 						if (p.IsNot)
 							StringBuilder.Append("NOT ");
 
-                        BuildExpression(precedence: (p.IsNot ? PrecedenceLevel.LogicalNegation : GetPrecedence(p) as PrecedenceLevel,
+                        BuildExpression(precedence: (p.IsNot ? PrecedenceLevel.LogicalNegation : GetPrecedence(p).Id),
                             expr: p.Expr1);
 					}
 
@@ -1705,12 +1705,12 @@ namespace LinqToDB.SqlProvider
 
 		protected void BuildPredicate(int parentPrecedence, ISqlPredicate predicate)
 		{
-			BuildPredicate(parentPrecedence, GetPrecedence(predicate), predicate);
+			BuildPredicate((parentPrecedence), GetPrecedence(predicate).Id, predicate);
 		}
 
 		protected void BuildPredicate(int parentPrecedence, int precedence, ISqlPredicate predicate)
 		{
-			var wrap = Wrap(precedence, parentPrecedence);
+			var wrap = Wrap(new PrecedenceLevel(precedence), new PrecedenceLevel(parentPrecedence));
 
 			if (wrap) StringBuilder.Append('(');
 			BuildPredicate(predicate);
@@ -1944,6 +1944,7 @@ namespace LinqToDB.SqlProvider
 			BuildExpression(expr, buildTableName, checkParentheses, null, ref dummy, throwExceptionIfTableNotFound);
 		}
 
+        protected void BuildExpression(int precedence, ISqlExpression expr) { BuildExpression(new PrecedenceLevel(precedence), expr); }
         protected void BuildExpression(PrecedenceLevel precedence, ISqlExpression expr)
 		{
 			var dummy = false;
@@ -2531,7 +2532,7 @@ namespace LinqToDB.SqlProvider
 								var value = tbl.TableArguments[i - 2];
 
 								sb.Length = 0;
-								WithStringBuilder(sb, () => BuildExpression(PrecedenceLevel.Primary, value));
+								WithStringBuilder(sb, () => BuildExpression(new PrecedenceLevel(PrecedenceLevel.Primary), value));
 								values[i] = sb.ToString();
 							}
 

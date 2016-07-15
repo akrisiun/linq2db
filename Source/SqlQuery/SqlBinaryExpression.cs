@@ -8,7 +8,13 @@ namespace LinqToDB.SqlQuery
 	[Serializable, DebuggerDisplay("SQL = {SqlText}")]
 	public class SqlBinaryExpression : ISqlExpression
 	{
+        public SqlBinaryExpression(Type systemType, PrecedenceLevel precedence, ISqlExpression expr1, string operation, ISqlExpression expr2)
+            : this(systemType, expr1, operation, expr2, precedence.Id) { } 
+        
         public SqlBinaryExpression(Type systemType, ISqlExpression expr1, string operation, ISqlExpression expr2, PrecedenceLevel precedence)
+            : this(systemType, expr1, operation, expr2, precedence.Id) { } 
+
+        public SqlBinaryExpression(Type systemType, ISqlExpression expr1, string operation, ISqlExpression expr2, int precedence)
 		{
 			if (expr1     == null) throw new ArgumentNullException("expr1");
 			if (operation == null) throw new ArgumentNullException("operation");
@@ -18,7 +24,7 @@ namespace LinqToDB.SqlQuery
 			Operation  = operation;
 			Expr2      = expr2;
 			SystemType = systemType;
-			Precedence = precedence;
+			Precedence = new PrecedenceLevel(precedence);
 		}
 
 		public SqlBinaryExpression(Type systemType, ISqlExpression expr1, string operation, ISqlExpression expr2)

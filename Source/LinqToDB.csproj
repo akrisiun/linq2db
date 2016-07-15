@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug.4.5\</OutputPath>
+    <OutputPath>..\bin\</OutputPath>
     <DefineConstants>TRACE;DEBUG;FW4;OVERRIDETOSTRING1</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -81,21 +81,6 @@
     <Compile Include="DataProvider\Access\AccessBulkCopy.cs" />
     <Compile Include="DataProvider\BasicMerge.cs" />
     <Compile Include="DataProvider\BasicBulkCopy.cs" />
-    <Compile Include="DataProvider\DB2\DB2BulkCopy.cs" />
-    <Compile Include="DataProvider\DB2\DB2LUWSchemaProvider.cs" />
-    <Compile Include="DataProvider\DB2\DB2LUWSqlBuilder.cs" />
-    <Compile Include="DataProvider\DB2\DB2SqlOptimizer.cs" />
-    <Compile Include="DataProvider\DB2\DB2Tools.cs" />
-    <Compile Include="DataProvider\DB2\DB2DataProvider.cs" />
-    <Compile Include="DataProvider\DB2\DB2Factory.cs" />
-    <Compile Include="DataProvider\DB2\DB2MappingSchema.cs" />
-    <Compile Include="DataProvider\DB2\DB2Types.cs" />
-    <Compile Include="DataProvider\DB2\DB2zOSSchemaProvider.cs" />
-    <Compile Include="DataProvider\DB2\DB2SqlBuilderBase.cs" />
-    <Compile Include="DataProvider\DB2\DB2IdentifierQuoteMode.cs" />
-    <Compile Include="DataProvider\DB2\DB2Version.cs" />
-    <Compile Include="DataProvider\DB2\DB2zOSSqlBuilder.cs" />
-    <Compile Include="DataProvider\DB2\DB2Merge.cs" />
     <Compile Include="DataProvider\Firebird\FirebirdIdentifierQuoteMode.cs" />
     <Compile Include="DataProvider\Firebird\FirebirdConfiguration.cs" />
     <Compile Include="DataProvider\Firebird\FirebirdSqlOptimizer.cs" />
@@ -119,8 +104,6 @@
     <Compile Include="DataProvider\PostgreSQL\PostgreSQLMappingSchema.cs" />
     <Compile Include="DataProvider\PostgreSQL\PostgreSQLSqlBuilder.cs" />
     <Compile Include="DataProvider\PostgreSQL\PostgreSQLIdentifierQuoteMode.cs" />
-    <Compile Include="DataProvider\SQLite\SQLiteBulkCopy.cs" />
-    <Compile Include="DataProvider\SQLite\SQLiteSqlOptimizer.cs" />
     <Compile Include="DataProvider\SqlServer\SqlServer2005SqlOptimizer.cs" />
     <Compile Include="DataProvider\SqlServer\SqlServer2000SqlOptimizer.cs" />
     <Compile Include="DataProvider\SqlServer\SqlServerBulkCopy.cs" />
@@ -169,7 +152,6 @@
     <Compile Include="SchemaProvider\ProcedureInfo.cs" />
     <Compile Include="SchemaProvider\ProcedureParameterInfo.cs" />
     <Compile Include="SchemaProvider\TableInfo.cs" />
-    <Compile Include="DataProvider\SQLite\SQLiteTools.cs" />
     <Compile Include="DataProvider\SqlServer\SqlServerTools.cs" />
     <Compile Include="DataProvider\SqlServer\FreeTextTableExpressionAttribute.cs" />
     <Compile Include="Linq\Builder\AsUpdatableBuilder.cs" />
@@ -204,11 +186,6 @@
     <Compile Include="SchemaProvider\ProcedureSchema.cs" />
     <Compile Include="SchemaProvider\SchemaProviderBase.cs" />
     <Compile Include="SchemaProvider\TableSchema.cs" />
-    <Compile Include="DataProvider\SQLite\SQLiteDataProvider.cs" />
-    <Compile Include="DataProvider\SQLite\SQLiteFactory.cs" />
-    <Compile Include="DataProvider\SQLite\SQLiteMappingSchema.cs" />
-    <Compile Include="DataProvider\SQLite\SQLiteSqlBuilder.cs" />
-    <Compile Include="DataProvider\SQLite\SQLiteSchemaProvider.cs" />
     <Compile Include="DataProvider\SqlServer\SqlServer2000SchemaProvider.cs" />
     <Compile Include="DataProvider\SqlServer\SqlServer2012SqlBuilder.cs" />
     <Compile Include="DataProvider\SqlServer\SqlServer2000SqlBuilder.cs" />

@@ -9,7 +9,7 @@ using System.Reflection;
 namespace LinqToDB.Linq.Builder
 {
 	using Common;
-	using Extensions;
+    using LinqToDB.Extensions;
 	using LinqToDB.Expressions;
 	using SqlQuery;
 

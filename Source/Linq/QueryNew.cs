@@ -87,6 +87,10 @@ namespace LinqToDB.Linq
 		public Func<IDataContext,Expression,IEnumerable<T>>                   GetIEnumerable;
 		public Func<IDataContext,Expression,Action<T>,CancellationToken,Task> GetForEachAsync;
 
+        // TODO
+        public virtual string GetSqlText(IDataContext dataContext, Expression expr, object[] parameters, int idx) 
+        { return null; }
+
 		QueryNew<T> _next;
 
 		#region GetQuery

@@ -348,7 +348,7 @@ namespace LinqToDB.SqlQuery
 
 		PrecedenceLevel ISqlExpression.Precedence
 		{
-			get { return PrecedenceLevel.Unknown; }
+			get { return new PrecedenceLevel(PrecedenceLevel.Unknown); }
 		}
 
 		Type ISqlExpression.SystemType
